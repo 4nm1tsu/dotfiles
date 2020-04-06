@@ -38,6 +38,9 @@ fi
 #    alias rm='gomi'
 #fi
 
+#for42
+export MAIL=4nm1tsu@4nm1tsu.com
+
 export PATH=$HOME/.composer/vendor/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/anaconda3/bin:$PATH
