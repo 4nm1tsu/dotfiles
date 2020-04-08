@@ -61,6 +61,7 @@ fi
 
 #for42
 export MAIL=4nm1tsu@4nm1tsu.com
+export USER=4nm1tsu
 alias norminette=$HOME/.norminette/norminette.rb
 
 export PATH=$HOME/.composer/vendor/bin:$PATH
