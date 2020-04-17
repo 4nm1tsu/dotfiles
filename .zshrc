@@ -59,6 +59,9 @@ fi
 #    alias rm='gomi'
 #fi
 
+#xclipのエイリアス
+alias xclip='xclip -sel clip'
+
 #for42
 export MAIL=4nm1tsu@4nm1tsu.com
 export USER=4nm1tsu
