@@ -346,6 +346,7 @@ set updatetime=100
 
 let g:ale_linters = {
     \ 'python': [],
+    \ 'ruby': [],
     \ }
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
