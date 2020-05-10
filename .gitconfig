@@ -11,3 +11,6 @@
 	email = 4nm1tsu@4nm1tsu.com
 	name = 4nm1tsu
 #version 2.13.0 or later
+
+[core]
+    excludesfile = ~/.gitignore
