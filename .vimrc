@@ -337,7 +337,8 @@ endfunction
 "    \ "Ignored"   : "",
 "    \ "Unknown"   : ""
 "    \ }
-let g:NERDTreeIndicatorMapCustom = {
+"    deprecated
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "~",
     \ "Staged"    : "+",
     \ "Untracked" : "*",
@@ -349,7 +350,8 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Ignored"   : "!",
     \ "Unknown"   : "?"
     \ }
-let g:NERDTreeShowIgnoredStatus = 1
+"let g:NERDTreeShowIgnoredStatus = 1 "deprecated
+let g:NERDTreeGitStatusShowIgnored = 1
 
 "nerdtree-syntax-highlighting
 "let g:NERDTreeHighlightFolders = 1 "完全一致を使用してフォルダーアイコンの強調表示を有効にします
