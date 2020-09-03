@@ -542,6 +542,7 @@ if has('linux')
 elseif has('mac')
     let g:previm_open_cmd="open -a safari"
 endif
+let g:previm_enable_realtime=1
 
 "vim-table-mode
 function! s:isAtStartOfLine(mapping)
