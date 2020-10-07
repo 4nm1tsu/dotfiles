@@ -135,13 +135,6 @@ augroup c
     autocmd BufNewFile,BufRead *.c,*.cpp setl shiftwidth=2
 augroup END
 
-augroup vimrc-42
-    autocmd!
-augroup END
-"42header
-let g:hdr42user="4nm1tsu"
-let g:hdr42mail="4nm1tsu@4nm1tsu.com"
-
 "goのときはハードタブに
 au BufNewFile,BufRead *.go set noexpandtab
 
