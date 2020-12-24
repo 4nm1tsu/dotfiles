@@ -140,7 +140,7 @@ Plug '4nm1tsu/previm'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
-Plug 'cocopon/iceberg.vim'
+Plug '4nm1tsu/iceberg.vim'
 Plug 'pbondoer/vim-42header'
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
