@@ -142,7 +142,7 @@ Plug 'liuchengxu/vista.vim'
 Plug '4nm1tsu/previm'
 Plug 'dhruvasagar/vim-table-mode'
 "Plug 'Yggdroot/indentLine'
-Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug '4nm1tsu/iceberg.vim'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'pbondoer/vim-42header'
