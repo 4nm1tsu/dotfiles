@@ -242,4 +242,12 @@ fi
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 
 # Added by Hugging Face CLI installer
-export PATH="/home/4nm1tsu/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
