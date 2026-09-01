@@ -223,6 +223,7 @@ Plug 'ravitemer/mcphub.nvim', { 'do': 'npm install -g mcp-hub@latest && nodenv r
 Plug 'nosduco/remote-sshfs.nvim'
 Plug 'ravsii/tree-sitter-d2', { 'do': 'make nvim-install' }
 Plug 'terrastruct/d2-vim'
+Plug 'vyfor/cord.nvim'
 
 " Initialize plugin system
 call plug#end()
@@ -1198,8 +1199,7 @@ require('avante').setup({
   provider = "openai",
   providers = {
     openai = {
-      endpoint = "xxx",
-      model = "gpt-5.1",
+      model = "claude-4.5-sonnet-aws",
       -- max_tokens = 16384,
     },
 

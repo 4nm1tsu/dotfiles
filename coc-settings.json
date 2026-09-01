@@ -91,5 +91,10 @@
   },
   "python.linting.ruffEnabled": true,
   "semanticTokens.enable": true,
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "snippets.ultisnips.pythonPrompt": false,
+  "json.schemaDownload.trustedDomains": {
+    "https://www.schemastore.org": true,
+    "https://raw.githubusercontent.com": true
+  }
 }
