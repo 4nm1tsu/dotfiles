@@ -20,6 +20,19 @@ if [ $failed -eq 0 ]; then
 fi
 
 failed=0
+mkdir -p ~/.local/bin
+for f in ${DOT_DIRECTORY}/bin/*
+do
+  ln -snfv ${f} ~/.local/bin/$(basename ${f})
+  if [ $? -ne 0 ]; then
+    failed=1
+  fi
+done
+if [ $failed -eq 0 ]; then
+  echo $(tput setaf 2)Deploy bin scripts complete! ✔︎$(tput sgr0)
+fi
+
+failed=0
 #ln -snfv ${DOT_DIRECTORY}/norminette.vim ~/.cache/dein/repos/github.com/w0rp/ale/ale_linters/c/
 ln -snfv ${DOT_DIRECTORY}/norminette.vim ~/.vim/plugged/ale/ale_linters/c
 if [ $? -ne 0 ]; then

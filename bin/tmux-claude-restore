@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Recreate windows/panes from a snapshot and resume each Claude session in place.
+# usage: tmux-claude-restore [snapshot.tsv]   (default: ~/.local/share/tmux-claude/last.tsv)
+file=${1:-~/.local/share/tmux-claude/last.tsv}
+[ -f "$file" ] || { echo "no snapshot: $file" >&2; exit 1; }
+declare -A target layout
+while IFS=$'\t' read -r sess win name lay pane path sid ccwd; do
+  key="$sess:$win"
+  [ -n "$ccwd" ] && path=$ccwd
+  [ -d "$path" ] || path=$HOME
+  if [ -z "${target[$key]}" ]; then
+    if ! tmux has-session -t "=$sess" 2>/dev/null; then
+      t=$(tmux new-session -d -P -F '#{pane_id}' -s "$sess" -n "$name" -c "$path")
+      tmux move-window -d -s "$t" -t "=$sess:$win" 2>/dev/null
+    else
+      t=$(tmux new-window -d -P -F '#{pane_id}' -t "=$sess:$win" -n "$name" -c "$path" 2>/dev/null ||
+          tmux new-window -d -P -F '#{pane_id}' -t "=$sess:" -n "$name" -c "$path")
+    fi
+    target[$key]=$t; layout[$key]=$lay
+  else
+    t=$(tmux split-window -d -P -F '#{pane_id}' -t "${target[$key]}" -c "$path")
+  fi
+  [ -n "$sid" ] && tmux send-keys -t "$t" "claude --resume $sid" Enter
+done <"$file"
+for key in "${!target[@]}"; do
+  tmux select-layout -t "${target[$key]}" "${layout[$key]}" 2>/dev/null
+done
+echo "restored ${#target[@]} windows"

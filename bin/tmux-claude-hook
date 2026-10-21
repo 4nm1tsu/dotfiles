@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Claude Code SessionStart/SessionEnd hook: tag the tmux pane with the Claude session ID.
+[ -n "$TMUX_PANE" ] || exit 0
+input=$(cat)
+event=$(jq -r '.hook_event_name' <<<"$input")
+case "$event" in
+  SessionStart)
+    tmux set-option -p -t "$TMUX_PANE" @claude_sid "$(jq -r '.session_id' <<<"$input")"
+    tmux set-option -p -t "$TMUX_PANE" @claude_cwd "$(jq -r '.cwd' <<<"$input")"
+    ;;
+  SessionEnd)
+    # Only an explicit exit (/exit, Ctrl-D) untags the pane; kills/shutdowns keep it restorable.
+    [ "$(jq -r '.reason' <<<"$input")" = prompt_input_exit ] || exit 0
+    tmux set-option -p -u -t "$TMUX_PANE" @claude_sid
+    tmux set-option -p -u -t "$TMUX_PANE" @claude_cwd
+    ;;
+esac
+tmux-claude-save >/dev/null 2>&1 &
+exit 0
