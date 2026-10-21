@@ -251,3 +251,8 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Alacritty を開いたら tmux に入る（サーバーが落ちていれば tmux-claude が前回の構成を復元する）
+if [[ -z $TMUX && -n $ALACRITTY_WINDOW_ID && -t 0 && -t 1 ]] && command -v tmux >/dev/null; then
+    exec tmux new-session -A -s 0
+fi

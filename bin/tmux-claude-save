@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 # Snapshot all tmux windows/panes (+ Claude session IDs) to ~/.local/share/tmux-claude/last.tsv
-dir=~/.local/share/tmux-claude
+dir=${TMUX_CLAUDE_DIR:-~/.local/share/tmux-claude}
 mkdir -p "$dir"
+# --debounce: used by tmux hooks. Coalesce bursts of events, and skip the save entirely if the
+# server dies meanwhile (terminal closed / reboot kills panes one by one before the server).
+if [ "$1" = --debounce ]; then
+  exec 9>"$dir/.debounce.lock"
+  flock -n 9 || exit 0
+  sleep 2
+  tmux list-sessions >/dev/null 2>&1 || exit 0
+fi
 # Don't overwrite a good snapshot while the system is shutting down and panes are dying.
 [ "$(systemctl is-system-running 2>/dev/null)" = stopping ] && exit 0
 tmp=$(mktemp "$dir/.save.XXXXXX")
-tmux list-panes -a -F '#{session_name}	#{window_index}	#{window_name}	#{window_layout}	#{pane_index}	#{pane_current_path}	#{@claude_sid}	#{@claude_cwd}' >"$tmp" || { rm -f "$tmp"; exit 1; }
+tmux list-panes -a -F '#{session_name}	#{window_index}	#{window_name}	#{window_layout}	#{pane_index}	#{pane_current_path}	#{@claude_sid}	#{@claude_cwd}	#{window_active}	#{pane_active}' >"$tmp" || { rm -f "$tmp"; exit 1; }
 [ -s "$tmp" ] || { rm -f "$tmp"; exit 0; }
 if [ -f "$dir/last.tsv" ] && ! cmp -s "$tmp" "$dir/last.tsv"; then
   cp "$dir/last.tsv" "$dir/backup-$(date +%Y%m%d-%H%M%S).tsv"
